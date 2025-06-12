@@ -38,7 +38,7 @@ bool ESSDisConnected()
     else
     {
         uint16_t check_ESSD = (buffer[3] << 8) | buffer[4];
-        AddLog(LOG_LEVEL_INFO, PSTR("ADDRESS ID: %d"), check_ESSD);
+        //AddLog(LOG_LEVEL_INFO, PSTR("ADDRESS ID: %d"), check_ESSD);
         if (check_ESSD == ESSD_ADDRESS_ID) return true;
     }
     return false;
