@@ -48,7 +48,7 @@ void ESSDInit()
 {
     if (!RS485.active) return;
     ESSD.valid = ESSDisConnected();
-    // if(!ESSD.valid) TasmotaGlobal.restart_flag = 2;
+    if(!ESSD.valid) TasmotaGlobal.restart_flag = 2;
 
     if (ESSD.valid)
         Rs485SetActiveFound(ESSD_ADDRESS_ID, ESSD.name);
