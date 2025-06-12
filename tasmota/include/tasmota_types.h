@@ -842,7 +842,7 @@ typedef struct {
   uint8_t       modbus_sconfig;            // F62
   uint8_t       windmeter_measure_intvl;   // F63
 
-  uint8_t       free_f64[8];               // F64 - Decrement if adding new Setting variables just above and below
+  uint8_t       free_f64[0];               // F64 - Decrement if adding new Setting variables just above and below
 
   // Only 32 bit boundary variables below
   float         ms5837_pressure_offset;    // F6C
@@ -869,6 +869,7 @@ typedef struct {
   SysMBitfield2 mbflag2;                   // FD8
   uint32_t      shutter_button[MAX_SHUTTER_KEYS];  // FDC
   uint32_t      i2c_drivers[3];            // FEC  I2cDriver
+  uint32_t      rs485_drivers[2];
   uint32_t      cfg_timestamp;             // FF8
   uint32_t      cfg_crc32;                 // FFC
 } TSettings;

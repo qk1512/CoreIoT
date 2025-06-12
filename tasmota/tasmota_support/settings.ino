@@ -1409,6 +1409,7 @@ void SettingsDefaultSet2(void) {
   memset(&Settings->sensors, 0xFF, 32);  // Enable all possible sensors
 #ifndef FIRMWARE_MINIMAL    // not needed in minimal/safeboot because of disabled feature and Settings are not saved anyways
   SettingsEnableAllI2cDrivers();
+  SettingsEnableAllRS485Drivers();
 #endif // FIRMWARE_MINIMAL
 
   // Tuya
@@ -1519,6 +1520,12 @@ void SettingsEnableAllI2cDrivers(void) {
   Settings->i2c_drivers[0] = I2CDRIVERS_0_31;
   Settings->i2c_drivers[1] = I2CDRIVERS_32_63;
   Settings->i2c_drivers[2] = I2CDRIVERS_64_95;
+}
+
+void SettingsEnableAllRS485Drivers(void)
+{
+  Settings->rs485_drivers[0] = RS485DRIVERS_0_31;
+  Settings->rs485_drivers[1] = RS485DRIVERS_32_63;
 }
 
 /********************************************************************************************/

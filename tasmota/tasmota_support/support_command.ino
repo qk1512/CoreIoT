@@ -41,6 +41,9 @@ const char kTasmotaCommands[] PROGMEM = "|"  // No prefix
 #ifdef USE_I2C
   D_CMND_I2CSCAN "|" D_CMND_I2CDRIVER "|"
 #endif
+#ifdef USE_RS485
+  D_CMND_RS485SCAN "|" D_CMND_RS485DRIVER "|"
+#endif
 #ifdef USE_DEVICE_GROUPS
   D_CMND_DEVGROUP_NAME "|"
 #ifdef USE_DEVICE_GROUPS_SEND
@@ -83,6 +86,9 @@ void (* const TasmotaCommand[])(void) PROGMEM = {
   &CmndBatteryPercent,
 #ifdef USE_I2C
   &CmndI2cScan, &CmndI2cDriver,
+#endif
+#ifdef USE_RS485
+  &CmndRs485Scan, &CmndRs485Driver,
 #endif
 #ifdef USE_DEVICE_GROUPS
   &CmndDevGroupName,
@@ -971,6 +977,10 @@ void CmndStatus(void)
 #ifdef USE_I2C
     ResponseAppend_P(PSTR(",\"" D_CMND_I2CDRIVER "\":"));
     I2cDriverState();
+#endif
+#ifdef USE_RS485
+    ResponseAppend_P(PSTR(",\"" D_CMND_RS485DRIVER "\":"));
+    Rs485DriverState();
 #endif
     ResponseJsonEndEnd();
     CmndStatusResponse(4);
@@ -2901,6 +2911,28 @@ void CmndI2cDriver(void)
   ResponseJsonEnd();
 }
 #endif  // USE_I2C
+
+#ifdef USE_RS485
+void CmndRs485Scan(void)
+{
+  return;
+}
+
+void CmndRs485Driver(void)
+{
+  if (XdrvMailbox.index < MAX_RS485_DRIVERS)
+  {
+    if (XdrvMailbox.payload >= 0)
+    {
+      bitWrite(Settings -> rs485_drivers[XdrvMailbox.index / 32], XdrvMailbox.index % 32, XdrvMailbox.payload & 1);
+      TasmotaGlobal.restart_flag = 2;
+    }
+  }
+  Response_P(PSTR("{\"" D_CMND_RS485DRIVER "\":"));
+  Rs485DriverState();
+  ResponseJsonEnd();
+}
+#endif
 
 #ifdef USE_DEVICE_GROUPS
 void CmndDevGroupName(void)

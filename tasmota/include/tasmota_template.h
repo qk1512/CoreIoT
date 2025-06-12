@@ -148,6 +148,8 @@ enum UserSelectablePins {
   GPIO_BS814_CLK, GPIO_BS814_DAT,      // Holtek BS814A2 touch ctrlr
   GPIO_WIEGAND_D0, GPIO_WIEGAND_D1,    // Wiegand Data lines
   GPIO_NEOPOOL_TX, GPIO_NEOPOOL_RX,    // Sugar Valley RS485 interface
+  GPIO_RS485_TX, GPIO_RS485_RX,
+  GPIO_LORA_TX, GPIO_LORA_RX,
   GPIO_SDM72_TX, GPIO_SDM72_RX,        // SDM72 Serial interface
   GPIO_TM1637CLK, GPIO_TM1637DIO,      // TM1637 interface
   GPIO_PROJECTOR_CTRL_TX, GPIO_PROJECTOR_CTRL_RX,  // LCD/DLP Projector Serial Control
@@ -1231,6 +1233,10 @@ const uint16_t kGpioNiceList[] PROGMEM = {
 #ifdef USE_NEOPOOL
   AGPIO(GPIO_NEOPOOL_TX),                        // Sugar Valley RS485 Interface
   AGPIO(GPIO_NEOPOOL_RX),                        // Sugar Valley RS485 Interface
+#endif
+#ifdef USE_RS485
+  AGPIO(GPIO_RS485_TX),
+  AGPIO(GPIO_RS485_RX),
 #endif
 #ifdef USE_PROJECTOR_CTRL
   AGPIO(GPIO_PROJECTOR_CTRL_TX),                 // LCD/DLP Projector Serial Control

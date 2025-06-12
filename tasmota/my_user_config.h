@@ -627,6 +627,25 @@
 //  #define DS18x20_USE_ID_AS_NAME                 // Use last 3 bytes for naming of sensors
 //  #define DS18x20_USE_ID_ALIAS                   // Add support aliasing for DS18x20 sensors. See comments in xsns_05 files (+0k5 code)
 
+// -- RS485 sensors ----------------------------
+#define USE_RS485
+#define RS485DRIVERS_0_31     0xFFFFFFFF
+#define RS485DRIVERS_32_63    0xFFFFFFFF
+
+#ifdef USE_RS485
+  //#define USE_SHT20
+  //#define USE_WDS
+  //#define USE_SOILMOISTURE
+  //#define USE_EP_NO2
+  //#define USE_ES_SO2
+  //#define USE_EP_O3
+  //#define USE_EPAM
+  //#define USE_EP_CO
+  #define USE_ES_SD
+#endif // USE_RS485
+
+
+
 // -- I2C sensors ---------------------------------
 #define USE_I2C                                  // I2C using library wire (+10k code, 0k2 mem, 124 iram)
 #define I2CDRIVERS_0_31        0xFFFFFFFF          // Enable I2CDriver0  to I2CDriver31
