@@ -241,6 +241,8 @@ const be_const_member_t lv_gpio_constants[] = {
     { "ROT1A", (int32_t) GPIO_ROT1A },
     { "ROT1A_NP", (int32_t) GPIO_ROT1A_NP },
     { "ROT1B", (int32_t) GPIO_ROT1B },
+    { "RS485_RX", (int32_t) GPIO_RS485_RX},
+    { "RS485_TX", (int32_t) GPIO_RS485_TX},
     { "ROT1B_NP", (int32_t) GPIO_ROT1B_NP },
     { "RXD", (int32_t) GPIO_RXD },
     { "SAIR_RX", (int32_t) GPIO_SAIR_RX },
