@@ -58,6 +58,10 @@ void ESSDInit()
 const char HTTP_SNS_ESSD[] PROGMEM = "{s} Alarm {m} %d";
 #define D_JSON_ESSD "ESSD"
 
+bool send_alarm = false;
+bool reset_alarm = false;
+int count_alarm = 0;
+
 void ESSDReadData()
 {
     if (!ESSD.valid)
@@ -87,22 +91,32 @@ void ESSDReadData()
         {
             uint16_t alarm_checkRaw = (buffer[3] << 8) | buffer[4];
             ESSD.alarm_check = alarm_checkRaw;
-            if(ESSD.alarm_check)
-            {
-                char payload[32];
-                snprintf(payload, sizeof(payload), "{\"ESSD\":%d}", ESSD.alarm_check);
-                MqttPublishPayload("v1/devices/me/telemetry", payload);
-                //MqttPublish("v1/devices/me/telemetry", payload);
-                /* ResponseAppend_P(PSTR(",\"%s\":{"), ESSD.name);
-                ResponseAppend_P(PSTR("\"" D_JSON_ESSD "\":%d"), ESSD.alarm_check);
-                ResponseJsonEnd(); */
+            if (ESSD.alarm_check == 1 && send_alarm == false) {
+                ExecuteCommandPower(1, POWER_ON, SRC_RULE);  // relay on
+                send_alarm = true;
+                reset_alarm = true;
             }
+
+            if(ESSD.alarm_check == 0 && reset_alarm == true)
+            {
+                ExecuteCommandPower(1, POWER_OFF, SRC_RULE);
+                reset_alarm = false;
+            }
+            
         }
         RS485.requestSent[ESSD_ADDRESS_ID] = 0;
         RS485.lastRequestTime = 0;
     }
 }
 
+void ESSDEverySecond() {
+    
+    if (ESSD.alarm_check == 1) {
+      AddLog(LOG_LEVEL_INFO, PSTR("ESSD alarm check triggered: turning on Relay"));
+      ExecuteCommandPower(1, POWER_ON, SRC_RULE);
+    }
+  }
+  
 
 void ESSDShow(bool json)
 {
@@ -133,10 +147,13 @@ bool Xsns118(uint32_t function)
     else if (ESSD.valid)
     {
         switch (function)
-        {
+        {            
         case FUNC_EVERY_250_MSECOND:
             ESSDReadData();
             break;
+        /* case FUNC_EVERY_SECOND:
+            ESSDEverySecond();
+            break; */
         case FUNC_JSON_APPEND:
             ESSDShow(1);
             break;

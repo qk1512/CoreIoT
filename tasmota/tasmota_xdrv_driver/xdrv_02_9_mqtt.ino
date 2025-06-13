@@ -647,6 +647,7 @@ bool MqttPublishLib(const char* topic, const uint8_t* payload, unsigned int plen
       newPayload += "}";
       plength = newPayload.length();
       strlcpy((char*)payload, newPayload.c_str(), plength+1);
+      //AddLog(LOG_LEVEL_INFO, PSTR("Format of MQTT publish: %s"),payload);
     } else { // attr is "STATE" or "INFO1/2/3" or any 
       strlcpy((char*)topic, "v1/devices/me/attributes", 25);
     }
