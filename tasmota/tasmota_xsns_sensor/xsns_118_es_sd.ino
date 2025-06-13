@@ -101,6 +101,7 @@ void ESSDReadData()
             {
                 ExecuteCommandPower(1, POWER_OFF, SRC_RULE);
                 reset_alarm = false;
+                send_alarm = false;
             }
             
         }
