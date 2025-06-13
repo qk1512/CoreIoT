@@ -12,7 +12,7 @@ struct ESSDt
 } ESSD;
 
 #define ESSD_ADDRESS_ID 0x01
-#define ESSD_ADDRESS_CHECK 0x0100
+//#define ESSD_ADDRESS_CHECK 0x0100
 #define ESSD_ADDRESS_ALARM_CHECK 0x0003
 #define ESSD_FUNCTION_CODE 0x03
 #define ESSD_TIMEOUT 200
@@ -55,6 +55,9 @@ void ESSDInit()
     AddLog(LOG_LEVEL_INFO, PSTR(ESSD.valid ? "ESSD is connected" : "ESSD is not detected"));
 }
 
+const char HTTP_SNS_ESSD[] PROGMEM = "{s} Alarm {m} %d";
+#define D_JSON_ESSD "ESSD"
+
 void ESSDReadData()
 {
     if (!ESSD.valid)
@@ -84,14 +87,22 @@ void ESSDReadData()
         {
             uint16_t alarm_checkRaw = (buffer[3] << 8) | buffer[4];
             ESSD.alarm_check = alarm_checkRaw;
+            if(ESSD.alarm_check)
+            {
+                char payload[32];
+                snprintf(payload, sizeof(payload), "{\"ESSD\":%d}", ESSD.alarm_check);
+                MqttPublishPayload("v1/devices/me/telemetry", payload);
+                //MqttPublish("v1/devices/me/telemetry", payload);
+                /* ResponseAppend_P(PSTR(",\"%s\":{"), ESSD.name);
+                ResponseAppend_P(PSTR("\"" D_JSON_ESSD "\":%d"), ESSD.alarm_check);
+                ResponseJsonEnd(); */
+            }
         }
         RS485.requestSent[ESSD_ADDRESS_ID] = 0;
         RS485.lastRequestTime = 0;
     }
 }
 
-const char HTTP_SNS_ESSD[] PROGMEM = "{s} Alarm {m} %d";
-#define D_JSON_ESSD "ESSD"
 
 void ESSDShow(bool json)
 {
