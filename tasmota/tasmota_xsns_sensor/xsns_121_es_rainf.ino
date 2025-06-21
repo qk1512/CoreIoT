@@ -1,7 +1,7 @@
 #ifdef USE_RS485
 #ifdef USE_ES_RAINF
 
-#define XSNS_126 126
+#define XSNS_121 121
 #define XRS485_20 20
 struct ESRAINFt
 {
@@ -69,7 +69,7 @@ bool ESRAINFReset(void)
     return false;
 }
 
-void CheckResetByTime()
+/* void CheckResetByTime()
 {   
     if(time_reset_rainfall < 120) return;
     TIME_T now;
@@ -77,7 +77,7 @@ void CheckResetByTime()
     AddLog(LOG_LEVEL_INFO,PSTR("hour: %d, minute: %d, seconds: %d"), now.hour, now.minute, now.second);
     time_reset_rainfall = 0;
     
-}
+} */
 
 void ESRAINFReadData(void)
 {
@@ -135,7 +135,7 @@ void ESRAINFShow(bool json)
 #endif
 }
 
-bool Xsns126(uint32_t function)
+bool Xsns121(uint32_t function)
 {
     if (!Rs485Enabled(XRS485_20)) return false;
 
@@ -151,10 +151,6 @@ bool Xsns126(uint32_t function)
         case FUNC_EVERY_250_MSECOND:
             ESRAINFReadData();
             break;
-        /* case FUNC_EVERY_SECOND:
-            CheckResetByTime();
-            time_reset_rainfall++;
-            break; */
         case FUNC_JSON_APPEND:
             ESRAINFShow(1);
             break;

@@ -1,7 +1,7 @@
 #ifdef USE_RS485
 #ifdef USE_WDS
 
-#define XSNS_124 124
+#define XSNS_119 119
 #define XRS485_01 1
 struct WDSt
 {
@@ -108,7 +108,7 @@ void WDSShow(bool json)
 #endif
 }
 
-bool Xsns124(uint32_t function)
+bool Xsns119(uint32_t function)
 {
     if (!Rs485Enabled(XRS485_01))
         return false;
