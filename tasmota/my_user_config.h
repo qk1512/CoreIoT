@@ -275,7 +275,7 @@
 #define LONGITUDE              2.294442          // [Longitude] Your location to be used with sunrise and sunset
 
 // -- Application ---------------------------------
-#define APP_TIMEZONE           1                 // [Timezone] +1 hour (Amsterdam) (-13 .. 14 = hours from UTC, 99 = use TIME_DST/TIME_STD)
+#define APP_TIMEZONE           7                 // [Timezone] +1 hour (Amsterdam) (-13 .. 14 = hours from UTC, 99 = use TIME_DST/TIME_STD)
 #define APP_LEDSTATE           LED_POWER         // [LedState] Function of led
                                                  //   (LED_OFF, LED_POWER, LED_MQTTSUB, LED_POWER_MQTTSUB, LED_MQTTPUB, LED_POWER_MQTTPUB, LED_MQTT, LED_POWER_MQTT)
 #define APP_LEDMASK            0xFFFF            // [LedMask] Assign Relay to Power led (0xFFFF is default)
@@ -634,14 +634,16 @@
 
 #ifdef USE_RS485
   //#define USE_SHT20
-  //#define USE_WDS
-  //#define USE_SOILMOISTURE
-  //#define USE_EP_NO2
-  //#define USE_ES_SO2
-  //#define USE_EP_O3
-  //#define USE_EPAM
-  //#define USE_EP_CO
-  #define USE_ES_SD
+  #define USE_WDS
+  #define USE_WS
+  #define USE_ES_RAINF
+// #define USE_SOILMOISTURE
+// #define USE_EP_NO2
+// #define USE_ES_SO2
+// #define USE_EP_O3
+// #define USE_EPAM
+// #define USE_EP_CO
+//#define USE_ES_SD
 #endif // USE_RS485
 
 
