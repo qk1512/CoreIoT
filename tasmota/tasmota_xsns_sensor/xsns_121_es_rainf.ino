@@ -18,9 +18,12 @@ bool ESRAINFisConnected()
 {
     if(!RS485.active) return false;
 
-    RS485.Rs485Modbus -> Send(ES_RAINF_ADDRESS_ID, ES_RAINF_FUNCTION_CODE, (0x07 << 8) | 0xD0, 0x01);
-
+    RS485.Rs485Modbus -> Send(ES_RAINF_ADDRESS_ID, ES_RAINF_FUNCTION_CODE, (0x07 << 8) | 0xD0, 1);
+    //RS485.Rs485Modbus -> (0x41, 0x03, 0x00, 0x01);
+    
     delay(200);
+
+    //flush();
 
     RS485.Rs485Modbus -> ReceiveReady();
 
@@ -33,7 +36,8 @@ bool ESRAINFisConnected()
     }
     else
     {
-        if(buffer[0] == ES_RAINF_ADDRESS_ID) return true;
+        uint16_t check_ESRAINF = (buffer[3] << 8) | buffer[4];
+        if(check_ESRAINF == ES_RAINF_ADDRESS_ID) return true;
     }
     return false;
 }
@@ -43,6 +47,7 @@ void ESRAINFInit(void)
     if(!RS485.active) return;
 
     ESRAINF.valid = ESRAINFisConnected();
+    if(!ESRAINF.valid) TasmotaGlobal.restart_flag = 2;
     if(ESRAINF.valid) Rs485SetActiveFound(ES_RAINF_ADDRESS_ID, ESRAINF.name);
     AddLog(LOG_LEVEL_INFO, PSTR(ESRAINF.valid ? "Rainfall is connected" : "Rainfall is not detected"));
 }

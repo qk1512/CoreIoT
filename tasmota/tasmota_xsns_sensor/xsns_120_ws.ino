@@ -34,7 +34,8 @@ bool WSisConnected()
     }
     else
     {
-        if(buffer[0] == WS_ADDRESS_ID) return true;
+        uint16_t check_WS = (buffer[3] << 8) | buffer[4];
+        if(check_WS == WS_ADDRESS_ID) return true;
     }
     return false;
 }
@@ -44,6 +45,7 @@ void WSInit(void)
     if(!RS485.active) return;
 
     WS.valid = WSisConnected();
+    if(!WS.valid) TasmotaGlobal.restart_flag = 2;
     if(WS.valid) Rs485SetActiveFound(WS_ADDRESS_ID, WS.name);
     AddLog(LOG_LEVEL_INFO, PSTR(WS.valid ? "Wind Speed is connected" : "Wind Speed is not connected"));
 }
@@ -91,7 +93,7 @@ void WSShow(bool json)
     if(json)
     {
         ResponseAppend_P(PSTR(",\"%s\":{"), WS.name);
-        ResponseAppend_P(PSTR("\"" D_JSON_WS "\":%d"), WS.wind_speed);
+        ResponseAppend_P(PSTR("\"" D_JSON_WS "\":%.1f"), WS.wind_speed);
         ResponseJsonEnd();
     }
 #ifdef USE_WEBSERVER

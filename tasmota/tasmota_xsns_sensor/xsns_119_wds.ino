@@ -19,7 +19,7 @@ bool WDSisConnected()
 {
     if (!RS485.active) return false;
 
-    RS485.Rs485Modbus->Send(WDS_ADDRESS_ID, WDS_FUNCTION_CODE, (0x01 << 8) | 0x00 , 0x01);
+    RS485.Rs485Modbus->Send(WDS_ADDRESS_ID, WDS_FUNCTION_CODE, (0x01 << 8) | 0x00 , 1);
 
     delay(200);
 
@@ -34,7 +34,8 @@ bool WDSisConnected()
     }
     else
     {
-        if (buffer[0] == WDS_ADDRESS_ID) return true;
+        uint16_t check_WDS = (buffer[3] << 8) | buffer[4];
+        if (check_WDS == WDS_ADDRESS_ID) return true;
     }
     return false;
 }
@@ -47,6 +48,7 @@ void WDSInit(void)
     }
 
     WDS.valid = WDSisConnected();
+    if(!WDS.valid) TasmotaGlobal.restart_flag = 2;
     if (WDS.valid) Rs485SetActiveFound(WDS_ADDRESS_ID, WDS.name);
     AddLog(LOG_LEVEL_INFO, PSTR(WDS.valid ? "Wind Direction is connected" : "Wind Direction is not detected"));
 }
