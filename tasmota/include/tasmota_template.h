@@ -3339,140 +3339,145 @@ const char kModuleNames[] PROGMEM =
 
 // !!! Update this list in the same order as SupportedModulesESP32 !!!
 const mytmplt kModules[] PROGMEM = {
-  {                              // WEMOS - Espressif ESP32-DevKitC - Any ESP32 device like WeMos and NodeMCU hardware (ESP32)
-    AGPIO(GPIO_USER),            // 0       (I)O                GPIO0, ADC2_CH1, TOUCH1, RTC_GPIO11, CLK_OUT1, EMAC_TX_CLK
-    AGPIO(GPIO_USER),            // 1       IO     TXD0         GPIO1, U0TXD, CLK_OUT3, EMAC_RXD2
-    AGPIO(GPIO_USER),            // 2       IO                  GPIO2, ADC2_CH2, TOUCH2, RTC_GPIO12, HSPIWP, HS2_DATA0, SD_DATA0
-    AGPIO(GPIO_USER),            // 3       IO     RXD0         GPIO3, U0RXD, CLK_OUT2
-    AGPIO(GPIO_USER),            // 4       IO                  GPIO4, ADC2_CH0, TOUCH0, RTC_GPIO10, HSPIHD, HS2_DATA1, SD_DATA1, EMAC_TX_ER
-    AGPIO(GPIO_USER),            // 5       IO                  GPIO5, VSPICS0, HS1_DATA6, EMAC_RX_CLK
-                                 // 6       IO                  Remapped to 28
-                                 // 7       IO                  Remapped to 29
-                                 // 8       IO                  Remapped to 30
-    AGPIO(GPIO_USER),            // 9       IO                  GPIO9, Flash D2, U1RXD
-    AGPIO(GPIO_USER),            // 10      IO                  GPIO10, Flash D3, U1TXD
-                                 // 11      IO                  Remapped to 31
-    AGPIO(GPIO_USER),            // 12      (I)O                GPIO12, ADC2_CH5, TOUCH5, RTC_GPIO15, MTDI, HSPIQ, HS2_DATA2, SD_DATA2, EMAC_TXD3       (If driven High, flash voltage (VDD_SDIO) is 1.8V not default 3.3V. Has internal pull-down, so unconnected = Low = 3.3V. May prevent flashing and/or booting if 3.3V flash is connected and pulled high. See ESP32 datasheet for more details.)
-    AGPIO(GPIO_USER),            // 13      IO                  GPIO13, ADC2_CH4, TOUCH4, RTC_GPIO14, MTCK, HSPID, HS2_DATA3, SD_DATA3, EMAC_RX_ER
-    AGPIO(GPIO_USER),            // 14      IO                  GPIO14, ADC2_CH6, TOUCH6, RTC_GPIO16, MTMS, HSPICLK, HS2_CLK, SD_CLK, EMAC_TXD2
-    AGPIO(GPIO_USER),            // 15      (I)O                GPIO15, ADC2_CH3, TOUCH3, MTDO, HSPICS0, RTC_GPIO13, HS2_CMD, SD_CMD, EMAC_RXD3         (If driven Low, silences boot messages from normal boot. Has internal pull-up, so unconnected = High = normal output.)
-    AGPIO(GPIO_USER),            // 16      IO                  GPIO16, HS1_DATA4, U2RXD, EMAC_CLK_OUT
-    AGPIO(GPIO_USER),            // 17      IO                  GPIO17, HS1_DATA5, U2TXD, EMAC_CLK_OUT_180
-    AGPIO(GPIO_USER),            // 18      IO                  GPIO18, VSPICLK, HS1_DATA7
-    AGPIO(GPIO_USER),            // 19      IO                  GPIO19, VSPIQ, U0CTS, EMAC_TXD0
-    0,                           // 20
-    AGPIO(GPIO_USER),            // 21      IO                  GPIO21, VSPIHD, EMAC_TX_EN
-    AGPIO(GPIO_USER),            // 22      IO      LED         GPIO22, VSPIWP, U0RTS, EMAC_TXD1
-    AGPIO(GPIO_USER),            // 23      IO                  GPIO23, VSPID, HS1_STROBE
-    0,                           // 24
-    AGPIO(GPIO_USER),            // 25      IO                  GPIO25, DAC_1, ADC2_CH8, RTC_GPIO6, EMAC_RXD0
-    AGPIO(GPIO_USER),            // 26      IO                  GPIO26, DAC_2, ADC2_CH9, RTC_GPIO7, EMAC_RXD1
-    AGPIO(GPIO_USER),            // 27      IO                  GPIO27, ADC2_CH7, TOUCH7, RTC_GPIO17, EMAC_RX_DV
-    0,                           // 6       IO                  GPIO6, Flash CLK
-    0,                           // 7       IO                  GPIO7, Flash D0
-    0,                           // 8       IO                  GPIO8, Flash D1
-    0,                           // 11      IO                  GPIO11, Flash CMD
-    AGPIO(GPIO_USER),            // 32      IO                  GPIO32, XTAL_32K_P (32.768 kHz crystal oscillator input), ADC1_CH4, TOUCH9, RTC_GPIO9
-    AGPIO(GPIO_USER),            // 33      IO                  GPIO33, XTAL_32K_N (32.768 kHz crystal oscillator output), ADC1_CH5, TOUCH8, RTC_GPIO8
-    AGPIO(GPIO_USER),            // 34      I   NO PULLUP       GPIO34, ADC1_CH6, RTC_GPIO4
-    AGPIO(GPIO_USER),            // 35      I   NO PULLUP       GPIO35, ADC1_CH7, RTC_GPIO5
-    AGPIO(GPIO_USER),            // 36      I   NO PULLUP       GPIO36, SENSOR_VP, ADC_H, ADC1_CH0, RTC_GPIO0
-    0,                           // 37          NO PULLUP
-    0,                           // 38          NO PULLUP
-    AGPIO(GPIO_USER),            // 39      I   NO PULLUP       GPIO39, SENSOR_VN, ADC1_CH3, ADC_H, RTC_GPIO3
-    0                            // Flag
-  },
+    {
+        // WEMOS - Espressif ESP32-DevKitC - Any ESP32 device like WeMos and NodeMCU hardware (ESP32)
+        AGPIO(GPIO_USER),    // 0       (I)O                GPIO0, ADC2_CH1, TOUCH1, RTC_GPIO11, CLK_OUT1, EMAC_TX_CLK
+        AGPIO(GPIO_USER),    // 1       IO     TXD0         GPIO1, U0TXD, CLK_OUT3, EMAC_RXD2
+        AGPIO(GPIO_USER),    // 2       IO                  GPIO2, ADC2_CH2, TOUCH2, RTC_GPIO12, HSPIWP, HS2_DATA0, SD_DATA0
+        AGPIO(GPIO_USER),    // 3       IO     RXD0         GPIO3, U0RXD, CLK_OUT2
+        AGPIO(GPIO_USER),    // 4       IO                  GPIO4, ADC2_CH0, TOUCH0, RTC_GPIO10, HSPIHD, HS2_DATA1, SD_DATA1, EMAC_TX_ER
+        AGPIO(GPIO_USER),    // 5       IO                  GPIO5, VSPICS0, HS1_DATA6, EMAC_RX_CLK
+                             // 6       IO                  Remapped to 28
+                             // 7       IO                  Remapped to 29
+                             // 8       IO                  Remapped to 30
+        AGPIO(GPIO_USER),    // 9       IO                  GPIO9, Flash D2, U1RXD
+        AGPIO(GPIO_USER),    // 10      IO                  GPIO10, Flash D3, U1TXD
+                             // 11      IO                  Remapped to 31
+        AGPIO(GPIO_USER),    // 12      (I)O                GPIO12, ADC2_CH5, TOUCH5, RTC_GPIO15, MTDI, HSPIQ, HS2_DATA2, SD_DATA2, EMAC_TXD3       (If driven High, flash voltage (VDD_SDIO) is 1.8V not default 3.3V. Has internal pull-down, so unconnected = Low = 3.3V. May prevent flashing and/or booting if 3.3V flash is connected and pulled high. See ESP32 datasheet for more details.)
+        AGPIO(GPIO_USER),    // 13      IO                  GPIO13, ADC2_CH4, TOUCH4, RTC_GPIO14, MTCK, HSPID, HS2_DATA3, SD_DATA3, EMAC_RX_ER
+        AGPIO(GPIO_USER),    // 14      IO                  GPIO14, ADC2_CH6, TOUCH6, RTC_GPIO16, MTMS, HSPICLK, HS2_CLK, SD_CLK, EMAC_TXD2
+        AGPIO(GPIO_USER),    // 15      (I)O                GPIO15, ADC2_CH3, TOUCH3, MTDO, HSPICS0, RTC_GPIO13, HS2_CMD, SD_CMD, EMAC_RXD3         (If driven Low, silences boot messages from normal boot. Has internal pull-up, so unconnected = High = normal output.)
+        AGPIO(GPIO_USER),    // 16      IO                  GPIO16, HS1_DATA4, U2RXD, EMAC_CLK_OUT
+        AGPIO(GPIO_USER),    // 17      IO                  GPIO17, HS1_DATA5, U2TXD, EMAC_CLK_OUT_180
+        AGPIO(GPIO_USER),    // 18      IO                  GPIO18, VSPICLK, HS1_DATA7
+        AGPIO(GPIO_USER),    // 19      IO                  GPIO19, VSPIQ, U0CTS, EMAC_TXD0
+        0,                   // 20
+        //AGPIO(GPIO_USER),    // 21      IO                  GPIO21, VSPIHD, EMAC_TX_EN
+        //AGPIO(GPIO_USER),    // 22      IO      LED         GPIO22, VSPIWP, U0RTS, EMAC_TXD1
+        AGPIO(GPIO_I2C_SDA), // 21      IO                  GPIO21, VSPIHD, EMAC_TX_EN  ------ with default is APGIO(GPIO_USER)
+        AGPIO(GPIO_I2C_SCL), // 22      IO      LED         GPIO22, VSPIWP, U0RTS, EMAC_TXD1 -------- with default is APGIO(GPIO_USER)
+        AGPIO(GPIO_USER),    // 23      IO                  GPIO23, VSPID, HS1_STROBE
+        0,                   // 24
+        AGPIO(GPIO_USER),    // 25      IO                  GPIO25, DAC_1, ADC2_CH8, RTC_GPIO6, EMAC_RXD0
+        AGPIO(GPIO_USER),    // 26      IO                  GPIO26, DAC_2, ADC2_CH9, RTC_GPIO7, EMAC_RXD1
+        AGPIO(GPIO_USER),    // 27      IO                  GPIO27, ADC2_CH7, TOUCH7, RTC_GPIO17, EMAC_RX_DV
+        0,                   // 6       IO                  GPIO6, Flash CLK
+        0,                   // 7       IO                  GPIO7, Flash D0
+        0,                   // 8       IO                  GPIO8, Flash D1
+        0,                   // 11      IO                  GPIO11, Flash CMD
+        AGPIO(GPIO_USER),    // 32      IO                  GPIO32, XTAL_32K_P (32.768 kHz crystal oscillator input), ADC1_CH4, TOUCH9, RTC_GPIO9
+        AGPIO(GPIO_USER),    // 33      IO                  GPIO33, XTAL_32K_N (32.768 kHz crystal oscillator output), ADC1_CH5, TOUCH8, RTC_GPIO8
+        AGPIO(GPIO_USER),    // 34      I   NO PULLUP       GPIO34, ADC1_CH6, RTC_GPIO4
+        AGPIO(GPIO_USER),    // 35      I   NO PULLUP       GPIO35, ADC1_CH7, RTC_GPIO5
+        AGPIO(GPIO_USER),    // 36      I   NO PULLUP       GPIO36, SENSOR_VP, ADC_H, ADC1_CH0, RTC_GPIO0
+        0,                   // 37          NO PULLUP
+        0,                   // 38          NO PULLUP
+        AGPIO(GPIO_USER),    // 39      I   NO PULLUP       GPIO39, SENSOR_VN, ADC1_CH3, ADC_H, RTC_GPIO3
+        0                    // Flag
+    },
 
 #ifdef USE_WEBCAM
-  {                              // ESP32_CAM_AITHINKER - Any ESP32 device with webcam (ESP32)
-    AGPIO(GPIO_WEBCAM_XCLK),     // 0       (I)O                GPIO0, CAM_XCLK
-    AGPIO(GPIO_USER),            // 1       IO     TXD0         GPIO1, U0TXD, CLK_OUT3, EMAC_RXD2
-    AGPIO(GPIO_SPI_MISO),        // 2       IO                  GPIO2, VSPI_MISO
-    AGPIO(GPIO_USER),            // 3       IO     RXD0         GPIO3, U0RXD, CLK_OUT2
-    AGPIO(GPIO_PWM1),            // 4       IO                  GPIO4, Flashlight
-    AGPIO(GPIO_WEBCAM_DATA),     // 5       IO                  GPIO5, CAM_DATA1
-                                 // 6       IO                  Remapped to 28
-                                 // 7       IO                  Remapped to 29
-                                 // 8       IO                  Remapped to 30
-    AGPIO(GPIO_USER),            // 9       IO                  GPIO9, Flash D2, U1RXD
-    AGPIO(GPIO_USER),            // 10      IO                  GPIO10, Flash D3, U1TXD
-                                 // 11      IO                  Remapped to 31
-    AGPIO(GPIO_USER),            // 12      (I)O                GPIO12, ADC2_CH5, TOUCH5, RTC_GPIO15, MTDI, HSPIQ, HS2_DATA2, SD_DATA2, EMAC_TXD3       (If driven High, flash voltage (VDD_SDIO) is 1.8V not default 3.3V. Has internal pull-down, so unconnected = Low = 3.3V. May prevent flashing and/or booting if 3.3V flash is connected and pulled high. See ESP32 datasheet for more details.)
-    AGPIO(GPIO_SDCARD_CS),       // 13      IO                  GPIO13, VSPI_CS_TFLASH
-    AGPIO(GPIO_SPI_CLK),         // 14      IO                  GPIO14, VSPI_CLK
-    AGPIO(GPIO_SPI_MOSI),        // 15      (I)O                GPIO15, VSPI_MOSI                                                                       (If driven Low, silences boot messages from normal boot. Has internal pull-up, so unconnected = High = normal output.)
-    AGPIO(GPIO_USER),            // 16      IO                  GPIO16, HS1_DATA4, U2RXD, EMAC_CLK_OUT
-    AGPIO(GPIO_USER),            // 17      IO                  GPIO17, HS1_DATA5, U2TXD, EMAC_CLK_OUT_180
-    AGPIO(GPIO_WEBCAM_DATA) +1,  // 18      IO                  GPIO18, CAM_DATA2
-    AGPIO(GPIO_WEBCAM_DATA) +2,  // 19      IO                  GPIO19, CAM_DATA3
-    0,                           // 20
-    AGPIO(GPIO_WEBCAM_DATA) +3,  // 21      IO                  GPIO21, CAM_DATA4
-    AGPIO(GPIO_WEBCAM_PCLK),     // 22      IO      LED         GPIO22, CAM_PCLK
-    AGPIO(GPIO_WEBCAM_HREF),     // 23      IO                  GPIO23, CAM_HREF
-    0,                           // 24
-    AGPIO(GPIO_WEBCAM_VSYNC),    // 25      IO                  GPIO25, CAM_VSYNC
-    AGPIO(GPIO_WEBCAM_SIOD),     // 26      IO                  GPIO26, CAM_SIOD
-    AGPIO(GPIO_WEBCAM_SIOC),     // 27      IO                  GPIO27, CAM_SIOC
-    0,                           // 6       IO                  GPIO6, Flash CLK
-    0,                           // 7       IO                  GPIO7, Flash D0
-    0,                           // 8       IO                  GPIO8, Flash D1
-    0,                           // 11      IO                  GPIO11, Flash CMD
-    AGPIO(GPIO_WEBCAM_PWDN),     // 32      IO                  GPIO32, CAM_PWDN
-    AGPIO(GPIO_USER),            // 33      IO                  GPIO33, XTAL_32K_N (32.768 kHz crystal oscillator output), ADC1_CH5, TOUCH8, RTC_GPIO8
-    AGPIO(GPIO_WEBCAM_DATA) +6,  // 34      I   NO PULLUP       GPIO34, CAM_DATA7
-    AGPIO(GPIO_WEBCAM_DATA) +7,  // 35      I   NO PULLUP       GPIO35, CAM_DATA8
-    AGPIO(GPIO_WEBCAM_DATA) +4,  // 36      I   NO PULLUP       GPIO36, CAM_DATA5
-    0,                           // 37          NO PULLUP
-    0,                           // 38          NO PULLUP
-    AGPIO(GPIO_WEBCAM_DATA) +5,  // 39      I   NO PULLUP       GPIO39, CAM_DATA6
-    0                            // Flag
-  },
+    {
+        // ESP32_CAM_AITHINKER - Any ESP32 device with webcam (ESP32)
+        AGPIO(GPIO_WEBCAM_XCLK),     // 0       (I)O                GPIO0, CAM_XCLK
+        AGPIO(GPIO_USER),            // 1       IO     TXD0         GPIO1, U0TXD, CLK_OUT3, EMAC_RXD2
+        AGPIO(GPIO_SPI_MISO),        // 2       IO                  GPIO2, VSPI_MISO
+        AGPIO(GPIO_USER),            // 3       IO     RXD0         GPIO3, U0RXD, CLK_OUT2
+        AGPIO(GPIO_PWM1),            // 4       IO                  GPIO4, Flashlight
+        AGPIO(GPIO_WEBCAM_DATA),     // 5       IO                  GPIO5, CAM_DATA1
+                                     // 6       IO                  Remapped to 28
+                                     // 7       IO                  Remapped to 29
+                                     // 8       IO                  Remapped to 30
+        AGPIO(GPIO_USER),            // 9       IO                  GPIO9, Flash D2, U1RXD
+        AGPIO(GPIO_USER),            // 10      IO                  GPIO10, Flash D3, U1TXD
+                                     // 11      IO                  Remapped to 31
+        AGPIO(GPIO_USER),            // 12      (I)O                GPIO12, ADC2_CH5, TOUCH5, RTC_GPIO15, MTDI, HSPIQ, HS2_DATA2, SD_DATA2, EMAC_TXD3       (If driven High, flash voltage (VDD_SDIO) is 1.8V not default 3.3V. Has internal pull-down, so unconnected = Low = 3.3V. May prevent flashing and/or booting if 3.3V flash is connected and pulled high. See ESP32 datasheet for more details.)
+        AGPIO(GPIO_SDCARD_CS),       // 13      IO                  GPIO13, VSPI_CS_TFLASH
+        AGPIO(GPIO_SPI_CLK),         // 14      IO                  GPIO14, VSPI_CLK
+        AGPIO(GPIO_SPI_MOSI),        // 15      (I)O                GPIO15, VSPI_MOSI                                                                       (If driven Low, silences boot messages from normal boot. Has internal pull-up, so unconnected = High = normal output.)
+        AGPIO(GPIO_USER),            // 16      IO                  GPIO16, HS1_DATA4, U2RXD, EMAC_CLK_OUT
+        AGPIO(GPIO_USER),            // 17      IO                  GPIO17, HS1_DATA5, U2TXD, EMAC_CLK_OUT_180
+        AGPIO(GPIO_WEBCAM_DATA) + 1, // 18      IO                  GPIO18, CAM_DATA2
+        AGPIO(GPIO_WEBCAM_DATA) + 2, // 19      IO                  GPIO19, CAM_DATA3
+        0,                           // 20
+        AGPIO(GPIO_WEBCAM_DATA) + 3, // 21      IO                  GPIO21, CAM_DATA4
+        AGPIO(GPIO_WEBCAM_PCLK),     // 22      IO      LED         GPIO22, CAM_PCLK
+        AGPIO(GPIO_WEBCAM_HREF),     // 23      IO                  GPIO23, CAM_HREF
+        0,                           // 24
+        AGPIO(GPIO_WEBCAM_VSYNC),    // 25      IO                  GPIO25, CAM_VSYNC
+        AGPIO(GPIO_WEBCAM_SIOD),     // 26      IO                  GPIO26, CAM_SIOD
+        AGPIO(GPIO_WEBCAM_SIOC),     // 27      IO                  GPIO27, CAM_SIOC
+        0,                           // 6       IO                  GPIO6, Flash CLK
+        0,                           // 7       IO                  GPIO7, Flash D0
+        0,                           // 8       IO                  GPIO8, Flash D1
+        0,                           // 11      IO                  GPIO11, Flash CMD
+        AGPIO(GPIO_WEBCAM_PWDN),     // 32      IO                  GPIO32, CAM_PWDN
+        AGPIO(GPIO_USER),            // 33      IO                  GPIO33, XTAL_32K_N (32.768 kHz crystal oscillator output), ADC1_CH5, TOUCH8, RTC_GPIO8
+        AGPIO(GPIO_WEBCAM_DATA) + 6, // 34      I   NO PULLUP       GPIO34, CAM_DATA7
+        AGPIO(GPIO_WEBCAM_DATA) + 7, // 35      I   NO PULLUP       GPIO35, CAM_DATA8
+        AGPIO(GPIO_WEBCAM_DATA) + 4, // 36      I   NO PULLUP       GPIO36, CAM_DATA5
+        0,                           // 37          NO PULLUP
+        0,                           // 38          NO PULLUP
+        AGPIO(GPIO_WEBCAM_DATA) + 5, // 39      I   NO PULLUP       GPIO39, CAM_DATA6
+        0                            // Flag
+    },
 #endif  // USE_WEBCAM
 
 #ifdef USE_ODROID_GO
-  {                              // ODROID_GO - (ESP32)
-    AGPIO(GPIO_KEY1),            // 0       (I)O                GPIO0, BTN-VOLUME
-    AGPIO(GPIO_TXD),             // 1       IO     TXD0         GPIO1, TXD0
-    AGPIO(GPIO_LEDLNK),          // 2       IO                  GPIO2, STATUS LED
-    AGPIO(GPIO_RXD),             // 3       IO     RXD0         GPIO3, RXD0
-    AGPIO(GPIO_USER),            // 4       IO                  GPIO4, ADC2_CH0, TOUCH0, RTC_GPIO10, HSPIHD, HS2_DATA1, SD_DATA1, EMAC_TX_ER
-    AGPIO(GPIO_ILI9341_CS),      // 5       IO                  GPIO5, VSPI_CS0_LCD
-                                 // 6       IO                  Remapped to 28
-                                 // 7       IO                  Remapped to 29
-                                 // 8       IO                  Remapped to 30
-    0,                           // 9       IO                  GPIO9, Flash D2, U1RXD
-    0,                           // 10      IO                  GPIO10, Flash D3, U1TXD
-                                 // 11      IO                  Remapped to 31
-    AGPIO(GPIO_USER),            // 12      (I)O                GPIO12, ADC2_CH5, TOUCH5, RTC_GPIO15, MTDI, HSPIQ, HS2_DATA2, SD_DATA2, EMAC_TXD3       (If driven High, flash voltage (VDD_SDIO) is 1.8V not default 3.3V. Has internal pull-down, so unconnected = Low = 3.3V. May prevent flashing and/or booting if 3.3V flash is connected and pulled high. See ESP32 datasheet for more details.)
-    AGPIO(GPIO_KEY1) +1,         // 13      IO                  GPIO13, BTN-MENU
-    AGPIO(GPIO_PWM1),            // 14      IO                  GPIO14, LCD Backlight
-    AGPIO(GPIO_USER),            // 15      (I)O                GPIO15, ADC2_CH3, TOUCH3, MTDO, HSPICS0, RTC_GPIO13, HS2_CMD, SD_CMD, EMAC_RXD3         (If driven Low, silences boot messages from normal boot. Has internal pull-up, so unconnected = High = normal output.)
-    AGPIO(GPIO_USER),            // 16      IO                  GPIO16, HS1_DATA4, U2RXD, EMAC_CLK_OUT
-    AGPIO(GPIO_USER),            // 17      IO                  GPIO17, HS1_DATA5, U2TXD, EMAC_CLK_OUT_180
-    AGPIO(GPIO_SPI_CLK),         // 18      IO                  GPIO18, VSPI_CLK
-    AGPIO(GPIO_SPI_MISO),        // 19      IO                  GPIO19, VSPI_MISO
-    0,                           // 20
-    AGPIO(GPIO_ILI9341_DC),      // 21      IO                  GPIO21, SPI_DC_LCD
-    AGPIO(GPIO_SDCARD_CS),       // 22      IO      LED         GPIO22, VSPI_CS1_TFLASH
-    AGPIO(GPIO_SPI_MOSI),        // 23      IO                  GPIO23, VSPI_MOSI
-    0,                           // 24
-    0,                           // 25      IO                  GPIO25, DAC_1 (PAM8304A)
-    0,                           // 26      IO                  GPIO26, DAC_2 (PAM8304A)
-    AGPIO(GPIO_KEY1) +2,         // 27      IO                  GPIO27, BTN-SELECT
-    0,                           // 6       IO                  GPIO6, Flash CLK
-    0,                           // 7       IO                  GPIO7, Flash D0
-    0,                           // 8       IO                  GPIO8, Flash D1
-    0,                           // 11      IO                  GPIO11, Flash CMD
-    AGPIO(GPIO_SWT1) +4,         // 32      IO                  GPIO32, BTN-A
-    AGPIO(GPIO_SWT1) +5,         // 33      IO                  GPIO33, BTN-B
-    AGPIO(GPIO_ADC_JOY),         // 34      I   NO PULLUP       GPIO34, JOY-X (LEFT-RIGHT)
-    AGPIO(GPIO_ADC_JOY) +1,      // 35      I   NO PULLUP       GPIO35, JOY-Y (UP-DOWN)
-    AGPIO(GPIO_ADC_RANGE) +2,    // 36      I   NO PULLUP       GPIO36, SENSOR_VP (BATTERY CARGER)
-    0,                           // 37          NO PULLUP
-    0,                           // 38          NO PULLUP
-    AGPIO(GPIO_KEY1) +3,         // 39      I   NO PULLUP       GPIO39, BTN-START
-    0                            // Flag
-  },
+    {
+        // ODROID_GO - (ESP32)
+        AGPIO(GPIO_KEY1),          // 0       (I)O                GPIO0, BTN-VOLUME
+        AGPIO(GPIO_TXD),           // 1       IO     TXD0         GPIO1, TXD0
+        AGPIO(GPIO_LEDLNK),        // 2       IO                  GPIO2, STATUS LED
+        AGPIO(GPIO_RXD),           // 3       IO     RXD0         GPIO3, RXD0
+        AGPIO(GPIO_USER),          // 4       IO                  GPIO4, ADC2_CH0, TOUCH0, RTC_GPIO10, HSPIHD, HS2_DATA1, SD_DATA1, EMAC_TX_ER
+        AGPIO(GPIO_ILI9341_CS),    // 5       IO                  GPIO5, VSPI_CS0_LCD
+                                   // 6       IO                  Remapped to 28
+                                   // 7       IO                  Remapped to 29
+                                   // 8       IO                  Remapped to 30
+        0,                         // 9       IO                  GPIO9, Flash D2, U1RXD
+        0,                         // 10      IO                  GPIO10, Flash D3, U1TXD
+                                   // 11      IO                  Remapped to 31
+        AGPIO(GPIO_USER),          // 12      (I)O                GPIO12, ADC2_CH5, TOUCH5, RTC_GPIO15, MTDI, HSPIQ, HS2_DATA2, SD_DATA2, EMAC_TXD3       (If driven High, flash voltage (VDD_SDIO) is 1.8V not default 3.3V. Has internal pull-down, so unconnected = Low = 3.3V. May prevent flashing and/or booting if 3.3V flash is connected and pulled high. See ESP32 datasheet for more details.)
+        AGPIO(GPIO_KEY1) + 1,      // 13      IO                  GPIO13, BTN-MENU
+        AGPIO(GPIO_PWM1),          // 14      IO                  GPIO14, LCD Backlight
+        AGPIO(GPIO_USER),          // 15      (I)O                GPIO15, ADC2_CH3, TOUCH3, MTDO, HSPICS0, RTC_GPIO13, HS2_CMD, SD_CMD, EMAC_RXD3         (If driven Low, silences boot messages from normal boot. Has internal pull-up, so unconnected = High = normal output.)
+        AGPIO(GPIO_USER),          // 16      IO                  GPIO16, HS1_DATA4, U2RXD, EMAC_CLK_OUT
+        AGPIO(GPIO_USER),          // 17      IO                  GPIO17, HS1_DATA5, U2TXD, EMAC_CLK_OUT_180
+        AGPIO(GPIO_SPI_CLK),       // 18      IO                  GPIO18, VSPI_CLK
+        AGPIO(GPIO_SPI_MISO),      // 19      IO                  GPIO19, VSPI_MISO
+        0,                         // 20
+        AGPIO(GPIO_ILI9341_DC),    // 21      IO                  GPIO21, SPI_DC_LCD
+        AGPIO(GPIO_SDCARD_CS),     // 22      IO      LED         GPIO22, VSPI_CS1_TFLASH
+        AGPIO(GPIO_SPI_MOSI),      // 23      IO                  GPIO23, VSPI_MOSI
+        0,                         // 24
+        0,                         // 25      IO                  GPIO25, DAC_1 (PAM8304A)
+        0,                         // 26      IO                  GPIO26, DAC_2 (PAM8304A)
+        AGPIO(GPIO_KEY1) + 2,      // 27      IO                  GPIO27, BTN-SELECT
+        0,                         // 6       IO                  GPIO6, Flash CLK
+        0,                         // 7       IO                  GPIO7, Flash D0
+        0,                         // 8       IO                  GPIO8, Flash D1
+        0,                         // 11      IO                  GPIO11, Flash CMD
+        AGPIO(GPIO_SWT1) + 4,      // 32      IO                  GPIO32, BTN-A
+        AGPIO(GPIO_SWT1) + 5,      // 33      IO                  GPIO33, BTN-B
+        AGPIO(GPIO_ADC_JOY),       // 34      I   NO PULLUP       GPIO34, JOY-X (LEFT-RIGHT)
+        AGPIO(GPIO_ADC_JOY) + 1,   // 35      I   NO PULLUP       GPIO35, JOY-Y (UP-DOWN)
+        AGPIO(GPIO_ADC_RANGE) + 2, // 36      I   NO PULLUP       GPIO36, SENSOR_VP (BATTERY CARGER)
+        0,                         // 37          NO PULLUP
+        0,                         // 38          NO PULLUP
+        AGPIO(GPIO_KEY1) + 3,      // 39      I   NO PULLUP       GPIO39, BTN-START
+        0                          // Flag
+    },
 #endif  // USE_ODROID_GO
 
 #ifdef USE_ESP32_SOLO
@@ -3481,49 +3486,50 @@ const mytmplt kModules[] PROGMEM = {
 #endif  // USE_ESP32_SOLO
 
 #ifdef USE_WT32_ETH01
-  {                              // WT32_ETH01 - (ESP32)
-    0,                           // 0       (I)O                GPIO0, Ethernet EMAC_REF_CLK
-    AGPIO(GPIO_USER),            // 1       IO     TXD0         GPIO1, U0TXD, CLK_OUT3, EMAC_RXD2
-    AGPIO(GPIO_USER),            // 2       IO                  GPIO2, ADC2_CH2, TOUCH2, RTC_GPIO12, HSPIWP, HS2_DATA0, SD_DATA0
-    AGPIO(GPIO_USER),            // 3       IO     RXD0         GPIO3, U0RXD, CLK_OUT2
-    AGPIO(GPIO_USER),            // 4       IO                  GPIO4, ADC2_CH0, TOUCH0, RTC_GPIO10, HSPIHD, HS2_DATA1, SD_DATA1, EMAC_TX_ER
-    AGPIO(GPIO_USER),            // 5       IO                  GPIO5, RXD Led green
-                                 // 6       IO                  Remapped to 28
-                                 // 7       IO                  Remapped to 29
-                                 // 8       IO                  Remapped to 30
-    0,                           // 9       IO                  GPIO9, Flash D2, U1RXD
-    0,                           // 10      IO                  GPIO10, Flash D3, U1TXD
-                                 // 11      IO                  Remapped to 31
-    AGPIO(GPIO_USER),            // 12      (I)O                GPIO12, ADC2_CH5, TOUCH5, RTC_GPIO15, MTDI, HSPIQ, HS2_DATA2, SD_DATA2, EMAC_TXD3       (If driven High, flash voltage (VDD_SDIO) is 1.8V not default 3.3V. Has internal pull-down, so unconnected = Low = 3.3V. May prevent flashing and/or booting if 3.3V flash is connected and pulled high. See ESP32 datasheet for more details.)
-    0,                           // 13      IO                  GPIO13, Ethernet EMAC_RX_ER
-    AGPIO(GPIO_USER),            // 14      IO                  GPIO14, ADC2_CH6, TOUCH6, RTC_GPIO16, MTMS, HSPICLK, HS2_CLK, SD_CLK, EMAC_TXD2
-    AGPIO(GPIO_USER),            // 15      (I)O                GPIO15, ADC2_CH3, TOUCH3, MTDO, HSPICS0, RTC_GPIO13, HS2_CMD, SD_CMD, EMAC_RXD3         (If driven Low, silences boot messages from normal boot. Has internal pull-up, so unconnected = High = normal output.)
-    AGPIO(GPIO_OUTPUT_HI),       // 16      IO                  GPIO16, Ethernet OSC_ENA
-    AGPIO(GPIO_LEDLNK_INV),      // 17      IO                  GPIO17, Network link led (green)
-    AGPIO(GPIO_ETH_PHY_MDIO),    // 18      IO                  GPIO18, Ethernet MDIO
-    0,                           // 19      IO                  GPIO19, Ethernet TXD0
-    0,                           // 20
-    0,                           // 21      IO                  GPIO21, Ethernet EMAC_TX_EN
-    0,                           // 22      IO      LED         GPIO22, Ethernet EMAC_TXD1
-    AGPIO(GPIO_ETH_PHY_MDC),     // 23      IO                  GPIO23, Ethernet MDC
-    0,                           // 24
-    0,                           // 25      IO                  GPIO25, Ethernet EMAC_RXD0
-    0,                           // 26      IO                  GPIO26, Ethernet EMAC_RXD1
-    0,                           // 27      IO                  GPIO27, Ethernet EMAC_RX_DV
-    0,                           // 6       IO                  GPIO6, Flash CLK
-    0,                           // 7       IO                  GPIO7, Flash D0
-    0,                           // 8       IO                  GPIO8, Flash D1
-    0,                           // 11      IO                  GPIO11, Flash CMD
-    AGPIO(GPIO_USER),            // 32      IO                  GPIO32, CFG
-    AGPIO(GPIO_USER),            // 33      IO                  GPIO33, 485_EN
-    0,                           // 34      I   NO PULLUP       GPIO34, ADC1_CH6, RTC_GPIO4
-    AGPIO(GPIO_USER),            // 35      I   NO PULLUP       GPIO35, ADC1_CH7, RTC_GPIO5
-    AGPIO(GPIO_USER),            // 36      I   NO PULLUP       GPIO36, SENSOR_VP, ADC_H, ADC1_CH0, RTC_GPIO0
-    0,                           // 37          NO PULLUP
-    0,                           // 38          NO PULLUP
-    AGPIO(GPIO_USER),            // 39      I   NO PULLUP       GPIO39, SENSOR_VN, ADC1_CH3, ADC_H, RTC_GPIO3
-    0                            // Flag
-  },
+    {
+        // WT32_ETH01 - (ESP32)
+        0,                        // 0       (I)O                GPIO0, Ethernet EMAC_REF_CLK
+        AGPIO(GPIO_USER),         // 1       IO     TXD0         GPIO1, U0TXD, CLK_OUT3, EMAC_RXD2
+        AGPIO(GPIO_USER),         // 2       IO                  GPIO2, ADC2_CH2, TOUCH2, RTC_GPIO12, HSPIWP, HS2_DATA0, SD_DATA0
+        AGPIO(GPIO_USER),         // 3       IO     RXD0         GPIO3, U0RXD, CLK_OUT2
+        AGPIO(GPIO_USER),         // 4       IO                  GPIO4, ADC2_CH0, TOUCH0, RTC_GPIO10, HSPIHD, HS2_DATA1, SD_DATA1, EMAC_TX_ER
+        AGPIO(GPIO_USER),         // 5       IO                  GPIO5, RXD Led green
+                                  // 6       IO                  Remapped to 28
+                                  // 7       IO                  Remapped to 29
+                                  // 8       IO                  Remapped to 30
+        0,                        // 9       IO                  GPIO9, Flash D2, U1RXD
+        0,                        // 10      IO                  GPIO10, Flash D3, U1TXD
+                                  // 11      IO                  Remapped to 31
+        AGPIO(GPIO_USER),         // 12      (I)O                GPIO12, ADC2_CH5, TOUCH5, RTC_GPIO15, MTDI, HSPIQ, HS2_DATA2, SD_DATA2, EMAC_TXD3       (If driven High, flash voltage (VDD_SDIO) is 1.8V not default 3.3V. Has internal pull-down, so unconnected = Low = 3.3V. May prevent flashing and/or booting if 3.3V flash is connected and pulled high. See ESP32 datasheet for more details.)
+        0,                        // 13      IO                  GPIO13, Ethernet EMAC_RX_ER
+        AGPIO(GPIO_USER),         // 14      IO                  GPIO14, ADC2_CH6, TOUCH6, RTC_GPIO16, MTMS, HSPICLK, HS2_CLK, SD_CLK, EMAC_TXD2
+        AGPIO(GPIO_USER),         // 15      (I)O                GPIO15, ADC2_CH3, TOUCH3, MTDO, HSPICS0, RTC_GPIO13, HS2_CMD, SD_CMD, EMAC_RXD3         (If driven Low, silences boot messages from normal boot. Has internal pull-up, so unconnected = High = normal output.)
+        AGPIO(GPIO_OUTPUT_HI),    // 16      IO                  GPIO16, Ethernet OSC_ENA
+        AGPIO(GPIO_LEDLNK_INV),   // 17      IO                  GPIO17, Network link led (green)
+        AGPIO(GPIO_ETH_PHY_MDIO), // 18      IO                  GPIO18, Ethernet MDIO
+        0,                        // 19      IO                  GPIO19, Ethernet TXD0
+        0,                        // 20
+        0,                        // 21      IO                  GPIO21, Ethernet EMAC_TX_EN
+        0,                        // 22      IO      LED         GPIO22, Ethernet EMAC_TXD1
+        AGPIO(GPIO_ETH_PHY_MDC),  // 23      IO                  GPIO23, Ethernet MDC
+        0,                        // 24
+        0,                        // 25      IO                  GPIO25, Ethernet EMAC_RXD0
+        0,                        // 26      IO                  GPIO26, Ethernet EMAC_RXD1
+        0,                        // 27      IO                  GPIO27, Ethernet EMAC_RX_DV
+        0,                        // 6       IO                  GPIO6, Flash CLK
+        0,                        // 7       IO                  GPIO7, Flash D0
+        0,                        // 8       IO                  GPIO8, Flash D1
+        0,                        // 11      IO                  GPIO11, Flash CMD
+        AGPIO(GPIO_USER),         // 32      IO                  GPIO32, CFG
+        AGPIO(GPIO_USER),         // 33      IO                  GPIO33, 485_EN
+        0,                        // 34      I   NO PULLUP       GPIO34, ADC1_CH6, RTC_GPIO4
+        AGPIO(GPIO_USER),         // 35      I   NO PULLUP       GPIO35, ADC1_CH7, RTC_GPIO5
+        AGPIO(GPIO_USER),         // 36      I   NO PULLUP       GPIO36, SENSOR_VP, ADC_H, ADC1_CH0, RTC_GPIO0
+        0,                        // 37          NO PULLUP
+        0,                        // 38          NO PULLUP
+        AGPIO(GPIO_USER),         // 39      I   NO PULLUP       GPIO39, SENSOR_VN, ADC1_CH3, ADC_H, RTC_GPIO3
+        0                         // Flag
+    },
 #endif  // USE_WT32_ETH01
 
 };
