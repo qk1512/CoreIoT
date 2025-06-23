@@ -18,12 +18,8 @@ bool ESRAINFisConnected()
 {
     if(!RS485.active) return false;
 
-    RS485.Rs485Modbus -> Send(ES_RAINF_ADDRESS_ID, ES_RAINF_FUNCTION_CODE, (0x07 << 8) | 0xD0, 1);
-    //RS485.Rs485Modbus -> (0x41, 0x03, 0x00, 0x01);
-    
+    RS485.Rs485Modbus -> Send(ES_RAINF_ADDRESS_ID, ES_RAINF_FUNCTION_CODE, (0x07 << 8) | 0xD0, 1);    
     delay(200);
-
-    //flush();
 
     RS485.Rs485Modbus -> ReceiveReady();
 
@@ -45,7 +41,6 @@ bool ESRAINFisConnected()
 void ESRAINFInit(void)
 {
     if(!RS485.active) return;
-
     ESRAINF.valid = ESRAINFisConnected();
     if(!ESRAINF.valid) TasmotaGlobal.restart_flag = 2;
     if(ESRAINF.valid) Rs485SetActiveFound(ES_RAINF_ADDRESS_ID, ESRAINF.name);
@@ -73,16 +68,6 @@ bool ESRAINFReset(void)
     if(now.hour == 1 && now.minute == 0) reset_rainfall = false;
     return false;
 }
-
-/* void CheckResetByTime()
-{   
-    if(time_reset_rainfall < 120) return;
-    TIME_T now;
-    BreakTime(LocalTime(), now);
-    AddLog(LOG_LEVEL_INFO,PSTR("hour: %d, minute: %d, seconds: %d"), now.hour, now.minute, now.second);
-    time_reset_rainfall = 0;
-    
-} */
 
 void ESRAINFReadData(void)
 {
