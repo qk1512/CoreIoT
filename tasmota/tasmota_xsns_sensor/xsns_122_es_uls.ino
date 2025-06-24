@@ -107,7 +107,7 @@ void SettingMode(float mode)
     uint32_t mode_raw;
     memcpy(&mode_raw, &mode, sizeof(float));
     uint16_t data_mode[2] = {(uint16_t)(mode_raw >> 16),
-                                     (uint16_t)(mode_raw & 0xFFFF)};
+                             (uint16_t)(mode_raw & 0xFFFF)};
 
     RS485.Rs485Modbus -> Send(ULS_ADDRESS_ID, ULS_FUNCTION_CODE_WRITE, ULS_ADDRESS_MODE, 0x02, data_mode);
 
@@ -134,6 +134,38 @@ void SettingMode(float mode)
     }
 }
 
+void SettingUints(float units)
+{
+    uint32_t units_raw;
+    memcpy(&units_raw, &units, sizeof(float));
+    uint16_t data_units[2] = {(uint16_t)(units_raw >> 16),
+                              (uint16_t)(units_raw & 0xFFFF)};
+
+    RS485.Rs485Modbus -> Send(ULS_ADDRESS_ID, ULS_FUNCTION_CODE_WRITE, ULS_ADDRESS_UNITS, 0x02, data_units);
+
+    delay(200);
+
+    RS485.Rs485Modbus -> ReceiveReady();
+
+    uint8_t buffer[12];
+    uint8_t error = RS485.Rs485Modbus -> ReceiveBuffer(buffer,12);
+    if(error)
+    {
+        AddLog(LOG_LEVEL_INFO, PSTR("Setting for UNITS has error %d"), error);
+    }
+    else
+    {
+        if(buffer[1] == 0x90)
+        {
+            AddLog(LOG_LEVEL_INFO, PSTR("Error Message for UNITS: %d"),buffer[2]);
+        }
+        else
+        {
+            AddLog(LOG_LEVEL_INFO, PSTR("Setting for UNITS successfully"));
+        }
+    }
+}
+
 void ESULSInit(void)
 {
     if(!RS485.active) return;
@@ -155,7 +187,7 @@ void ESULSInit(void)
 
 void ULSReadData(void)
 {
-    if(ULS.valid == false) return;
+    if(ESULS.valid == false) return;
 
     if(isWaitingResponse(ULS_ADDRESS_ID)) return;
 
@@ -179,8 +211,16 @@ void ULSReadData(void)
             }
             else
             {
-                uint16_t 
+                uint32_t temperature_raw = ((buffer[3] << 24) | (buffer[4] << 16) | (buffer[5] << 8) | buffer[6]);
+                uint32_t display_value_raw = ((buffer[7]) << 24 |
+                                              (buffer[8]) << 16 |
+                                              (buffer[9]) << 8  |
+                                              buffer[10]);
+                memcpy(&ESULS.temperature, &temperature_raw, sizeof(float));
+                memcpy(&ESULS.display_value, &display_value_raw, sizeof(float)); 
             }
+            RS485.requestSent[ULS_ADDRESS_ID] = 0;
+            RS485.lastRequestTime = 0;
         }
     }
 }
@@ -223,7 +263,7 @@ bool Xsns122(uint32_t function)
         switch(function)
         {
         case FUNC_EVERY_250_MSECOND:
-            
+            ULSReadData();
             break;
         case FUNC_JSON_APPEND:
             ESULSShow(1);
