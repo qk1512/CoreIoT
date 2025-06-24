@@ -416,8 +416,8 @@
                                                  // Enabled by default on ESP32 and variants
 
 // -- ESP-NOW -------------------------------------
-//#define USE_TASMESH                              // Enable Tasmota Mesh using ESP-NOW (+11k code)
-//  #define USE_TASMESH_HEARTBEAT                  // If enabled, the broker will detect when nodes come online and offline and send Birth and LWT messages over MQTT correspondingly
+#define USE_TASMESH                              // Enable Tasmota Mesh using ESP-NOW (+11k code)
+  //#define USE_TASMESH_HEARTBEAT                  // If enabled, the broker will detect when nodes come online and offline and send Birth and LWT messages over MQTT correspondingly
 //  #define TASMESH_OFFLINE_DELAY  3               // Maximum number of seconds since the last heartbeat before the broker considers a node to be offline
 //#define USE_WIZMOTE                              // [SetOption164 1] Add support for WiZ Smart Remote (uses ESP-NOW) (+4k2 code)
 //  #define WIZMOTE_CHANNEL      1                 // WiZ Smart Remote ESP-NOW channel if WiFi is disabled
@@ -632,11 +632,12 @@
 #define RS485DRIVERS_0_31     0xFFFFFFFF
 #define RS485DRIVERS_32_63    0xFFFFFFFF
 
+//#define TASMOTAMODBUSDEBUG
 #ifdef USE_RS485
   //#define USE_SHT20
-  #define USE_WDS
-  #define USE_WS
-  #define USE_ES_RAINF
+  //#define USE_WDS
+  //#define USE_WS
+  //#define USE_ES_RAINF
   #define USE_ES_ULS
 // #define USE_SOILMOISTURE
 // #define USE_EP_NO2

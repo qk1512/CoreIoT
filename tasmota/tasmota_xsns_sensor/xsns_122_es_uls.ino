@@ -46,17 +46,18 @@ bool ESULSisConnected()
 {
     if(!RS485.active) return false;
 
-    RS485.Rs485Modbus -> Send(ULS_ADDRESS_ID, ULS_FUNCTION_CODE_READ, (0x00 << 8) | 0x14, 0x02);
+    RS485.Rs485Modbus -> Send(ULS_ADDRESS_ID, ULS_FUNCTION_CODE_READ, ULS_ADDRESS_DEVICE_ADDRESS, 2);
 
     delay(200);
 
     RS485.Rs485Modbus -> ReceiveReady();
 
-    uint8_t buffer[12];
-    uint8_t error = RS485.Rs485Modbus -> ReceiveBuffer(buffer,12);
+    uint8_t buffer[16];
+    uint8_t error = RS485.Rs485Modbus -> ReceiveBuffer(buffer,4);
+
     if(error)
     {
-        AddLog(LOG_LEVEL_INFO, PSTR("ULSrasonic error %d"), error);
+        AddLog(LOG_LEVEL_INFO, PSTR("Ultrasonic error %u"), error);
         return false;
     }
     else
@@ -84,20 +85,20 @@ void SettingMountingHeight(float mounting_height)
     delay(200);
     RS485.Rs485Modbus->ReceiveReady();
     uint8_t buffer[12];
-    uint8_t error = RS485.Rs485Modbus->ReceiveBuffer(buffer, 12);
+    uint8_t error = RS485.Rs485Modbus->ReceiveBuffer(buffer, 4);
     if (error)
     {
-        AddLog(LOG_LEVEL_INFO, PSTR("Setting for mounting height has error %d"), error);
+        AddLog(LOG_LEVEL_INFO, PSTR("Setting for MOUNTING HEIGHT has error %d"), error);
     }
     else
     {
         if (buffer[1] == 0x90)
         {
-            AddLog(LOG_LEVEL_INFO, PSTR("Error Message for Mounting Height: %d"), buffer[2]);
+            AddLog(LOG_LEVEL_INFO, PSTR("Error Message for MOUNTING HEIGHT: %d"), buffer[2]);
         }
         else
         {
-            AddLog(LOG_LEVEL_INFO, PSTR("Setting for mounting height successfully"));
+            AddLog(LOG_LEVEL_INFO, PSTR("Setting for MOUNTING HEIGHT successfully"));
         }
     }
 }
@@ -116,16 +117,16 @@ void SettingMode(float mode)
     RS485.Rs485Modbus -> ReceiveReady();
 
     uint8_t buffer[12];
-    uint8_t error = RS485.Rs485Modbus -> ReceiveBuffer(buffer, 12);
+    uint8_t error = RS485.Rs485Modbus -> ReceiveBuffer(buffer, 4);
     if(error)
     {
-        AddLog(LOG_LEVEL_INFO, PSTR("Setting for MODE has error %d"), error);
+        AddLog(LOG_LEVEL_INFO, PSTR("Setting for MODE has error %u"), error);
     }
     else
     {
         if(buffer[1] == 0x90)
         {
-            AddLog(LOG_LEVEL_INFO, PSTR("Error Message for MODE: %d"), buffer[2]);
+            AddLog(LOG_LEVEL_INFO, PSTR("Error Message for MODE: %u"), buffer[2]);
         }
         else
         {
@@ -148,16 +149,16 @@ void SettingUints(float units)
     RS485.Rs485Modbus -> ReceiveReady();
 
     uint8_t buffer[12];
-    uint8_t error = RS485.Rs485Modbus -> ReceiveBuffer(buffer,12);
+    uint8_t error = RS485.Rs485Modbus -> ReceiveBuffer(buffer,4);
     if(error)
     {
-        AddLog(LOG_LEVEL_INFO, PSTR("Setting for UNITS has error %d"), error);
+        AddLog(LOG_LEVEL_INFO, PSTR("Setting for UNITS has error %u"), error);
     }
     else
     {
         if(buffer[1] == 0x90)
         {
-            AddLog(LOG_LEVEL_INFO, PSTR("Error Message for UNITS: %d"),buffer[2]);
+            AddLog(LOG_LEVEL_INFO, PSTR("Error Message for UNITS: %u"),buffer[2]);
         }
         else
         {
@@ -203,7 +204,7 @@ void ULSReadData(void)
         if(RS485.Rs485Modbus -> ReceiveReady())
         {
             uint8_t buffer[12];
-            uint8_t error = RS485.Rs485Modbus -> ReceiveBuffer(buffer,12);
+            uint8_t error = RS485.Rs485Modbus -> ReceiveBuffer(buffer,8);
 
             if(error)
             {
@@ -211,11 +212,11 @@ void ULSReadData(void)
             }
             else
             {
-                uint32_t temperature_raw = ((buffer[3] << 24) | (buffer[4] << 16) | (buffer[5] << 8) | buffer[6]);
-                uint32_t display_value_raw = ((buffer[7]) << 24 |
-                                              (buffer[8]) << 16 |
-                                              (buffer[9]) << 8  |
-                                              buffer[10]);
+                uint32_t display_value_raw = ((buffer[3] << 24) | (buffer[4] << 16) | (buffer[5] << 8) | buffer[6]);
+                uint32_t temperature_raw = ((buffer[7]) << 24 |
+                                            (buffer[8]) << 16 |
+                                            (buffer[9]) << 8  |
+                                            buffer[10]);
                 memcpy(&ESULS.temperature, &temperature_raw, sizeof(float));
                 memcpy(&ESULS.display_value, &display_value_raw, sizeof(float)); 
             }
@@ -226,7 +227,7 @@ void ULSReadData(void)
 }
 
 const char HTTP_SNS_ES_ULS_TEMP[] PROGMEM = "{s} Ultrasonic Temperature {m} %.2f°C";
-const char HTTP_SNS_ES_ULS_VALUE[] PROGMEM = "{s} Ultrasonic Liquid Level {m} %.2f";
+const char HTTP_SNS_ES_ULS_VALUE[] PROGMEM = "{s} Ultrasonic Liquid Level {m} %.3fm";
 
 #define D_JSON_ES_ULS_LIQUID_LEVEL "Ultrasonic Liquid Level"
 

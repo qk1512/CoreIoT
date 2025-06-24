@@ -83,6 +83,8 @@ uint8_t TasmotaModbus::Send(uint8_t device_address, uint8_t function_code, uint1
   AddLog(LOG_LEVEL_DEBUG_MORE, PSTR("MBS: Serial Send: @%02X f:%02X r:%04X c:%u &:%08X"), device_address, function_code, start_address, count, (uint32)write_data);
   if (write_data) AddLog(LOG_LEVEL_DEBUG_MORE, PSTR("MBS: Serial Send: Write data 0x%04X"), write_data[0]);
 #endif
+  //AddLog(LOG_LEVEL_INFO, PSTR("MBS: Serial Send: @%02X f:%02X r:%04X c:%u &:%08X"), device_address, function_code, start_address, count, (uint32)write_data);
+  //if (write_data) AddLog(LOG_LEVEL_INFO, PSTR("MBS: Serial Send: Write data 0x%04X"), write_data[0]);
 
   uint16_t byte_count = count * 2; // In register mode count is nr of registers (2 bytes)
   if ((function_code == 1) || (function_code == 2) || (function_code == 15)) byte_count = ((count-1) / 8) + 1; // In bitmode count is nr of bits
