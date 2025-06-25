@@ -230,14 +230,17 @@ const char HTTP_SNS_ES_ULS_TEMP[] PROGMEM = "{s} Ultrasonic Temperature {m} %.2f
 const char HTTP_SNS_ES_ULS_VALUE[] PROGMEM = "{s} Ultrasonic Liquid Level {m} %.3fm";
 
 #define D_JSON_ES_ULS_LIQUID_LEVEL "Ultrasonic Liquid Level"
+#define D_JSON_ES_ULS_TEMPERATURE "Ultrasonic Temperature"
 
 void ESULSShow(bool json)
 {
     if(json)
     {
         ResponseAppend_P(PSTR(",\"%s\":{"),ESULS.name);
-        ResponseAppend_P(PSTR("\"" D_JSON_TEMPERATURE "\":%*_f,\"" D_JSON_ES_ULS_LIQUID_LEVEL"\"%.2f"),
-                        Settings->flag2.temperature_resolution, &ESULS.temperature, ESULS.display_value);
+        ResponseAppend_P(PSTR(
+                "\"" D_JSON_ES_ULS_TEMPERATURE "\":%.2f,"
+                "\"" D_JSON_ES_ULS_LIQUID_LEVEL"\":%.2f"),
+                        ESULS.temperature, ESULS.display_value);
         ResponseJsonEnd();
     }
 #ifdef USE_WEBSERVER

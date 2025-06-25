@@ -87,7 +87,7 @@ Examples :
 // !!! Remember that your changes GOES AT THE BOTTOM OF THIS FILE right before the last #endif !!!
 */
 
-//#define USE_MQTT_TB_IOT
+#define USE_MQTT_TB_IOT
 
 #ifdef ESP32
 #ifdef USER_TEMPLATE
