@@ -4,7 +4,7 @@
 #define XSNS_123 123
 #define XRS485_22 22
 
-#define ES_SENSOR_ADDRESS_ID 0x01
+#define ES_SENSOR_ADDRESS_ID 0x15
 #define ES_SENSOR_ADDRESS_HUMIDITY 0x01F4
 #define ES_SENSOR_ADDRESS_TEMPERATURE 0x01F5
 #define ES_SENSOR_ADDRESS_NOISE 0x01F6
@@ -124,7 +124,7 @@ const char HTTP_SNS_ES_SENSOR_NOISE[] PROGMEM = "{s} Noise value {m} %.1fdB";
 const char HTTP_SNS_ES_SENSOR_PM_2_5[] PROGMEM = "{s} PM2.5 {m} %dppm";
 const char HTTP_SNS_ES_SENSOR_PM10[] PROGMEM = "{s} PM10 {m} %dppm";
 const char HTTP_SNS_ES_SENSOR_ATMOSPHERE[] PROGMEM = "{s} Atmosphere pressure {m} %.1fkPa";
-const char HTTP_SNS_ES_SENSOR_AMBIENT[] PROGMEM = "{s} Ambient Light{m} %d";
+const char HTTP_SNS_ES_SENSOR_AMBIENT[] PROGMEM = "{s} Ambient Light{m} %dLux";
 
 #define D_JSON_ES_SENSOR_TEMPERATURE "ES Sensor Temperature"
 #define D_JSON_ES_SENSOR_HUMIDITY "ES Sensor Humidity"
@@ -143,9 +143,9 @@ void ESSENSORShow(bool json)
             "\"" D_JSON_ES_SENSOR_HUMIDITY "\":%.1f," 
             "\"" D_JSON_ES_SENSOR_TEMPERATURE "\":%.1f,"
             "\"" D_JSON_ES_SENSOR_NOISE "\":%.1f,"
-            "\"" D_JSON_ES_SENSOR_PM_2_5 "\":%.1f,"
+            "\"" D_JSON_ES_SENSOR_PM_2_5 "\":%d,"
             "\"" D_JSON_ES_SENSOR_PM10 "\":%d," 
-            "\"" D_JSON_ES_SENSOR_ATMOSPHERE "\":%d,"
+            "\"" D_JSON_ES_SENSOR_ATMOSPHERE "\":%.1f,"
             "\"" D_JSON_ES_SENSOR_AMBIENT "\":%d"
             ),
             ESSENSOR.humidity,

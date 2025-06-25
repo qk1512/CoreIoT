@@ -638,7 +638,7 @@
   //#define USE_WDS
   //#define USE_WS
   //#define USE_ES_RAINF
-  #define USE_ES_ULS
+  //#define USE_ES_ULS
   #define USE_ES_SENSOR
 // #define USE_SOILMOISTURE
 // #define USE_EP_NO2
