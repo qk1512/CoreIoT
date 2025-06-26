@@ -42,7 +42,7 @@ struct ESULSt
 #define ULS_MOUNTING_HEIGHT 2.0f
 #define ULS_SETTING_MODE 1.0f
 
-bool ESULSisConnected()
+bool ULSisConnected()
 {
     if(!RS485.active) return false;
 
@@ -167,11 +167,11 @@ void SettingUints(float units)
     }
 }
 
-void ESULSInit(void)
+void ULSInit(void)
 {
     if(!RS485.active) return;
 
-    ESULS.valid = ESULSisConnected();
+    ESULS.valid = ULSisConnected();
     //if(!ESULS.valid) TasmotaGlobal.restart_flag = 2;
     if(ESULS.valid)
     {
@@ -232,7 +232,7 @@ const char HTTP_SNS_ES_ULS_VALUE[] PROGMEM = "{s} Ultrasonic Liquid Level {m} %.
 #define D_JSON_ES_ULS_LIQUID_LEVEL "Ultrasonic Liquid Level"
 #define D_JSON_ES_ULS_TEMPERATURE "Ultrasonic Temperature"
 
-void ESULSShow(bool json)
+void ULSShow(bool json)
 {
     if(json)
     {
@@ -252,6 +252,83 @@ void ESULSShow(bool json)
 #endif
 }
 
+#define D_CMND_SET_MOUNTING_HEIGHT          "SetMountingHeight"
+#define D_CMND_SET_LIQUID_LEVEL             "SetLiquidLevel"
+#define D_CMND_SET_MODE                     "SetMode"
+#define D_CMND_SET_RELAY_ULS_1              "SetRelayULS1"
+#define D_CMND_SET_RELAY_ULS_2              "SetRelayULS2"
+#define D_CMND_SET_UNITS                    "SetUnits"
+
+const char kULSCommand[] PROGMEM = "|" // no prefix
+    D_CMND_SET_MOUNTING_HEIGHT "|"
+    D_CMND_SET_LIQUID_LEVEL    "|"
+    D_CMND_SET_MODE            "|"
+    D_CMND_SET_RELAY_ULS_1     "|"
+    D_CMND_SET_RELAY_ULS_2     "|"
+    D_CMND_SET_UNITS           ;
+
+void (* const ULSCommand[])(void) PROGMEM = {
+    &CmndSetMountingHeight,
+    &CmndSetLiquidLevel,
+    &CmndSetMode,
+    &CmndSetRelayULS1,
+    &CmndSetRelayULS2,
+    &CmndSetUnits
+}
+
+void CmndSetMountingHeight(void)
+{
+    if((XdrvMailbox.data_len >= 1) && (XdrvMailbox.data_len < 4))
+    {
+        uint8_t number = (XdrvMailbox.data[0] - '0');
+        SettingMountingHeight(number);
+
+        char json_response[50];
+        snprintf_P(json_response,sizeof(json_response), PSTR("{\"SetMountingHeight %.2f\"}"), number);
+        ResponseCmndChar(PSTR(json_response));
+    }
+    else
+    {
+        ResponseCmndChar("Invalid Command");
+    }
+}
+
+void CmndSetMode(void)
+{
+    if((XdrvMailbox.data_len >= 1) && (XdrvMailbox.data_len < 4))
+    {
+        uint8_t number = (XdrvMailbox.data[0] - '0');
+        SettingMode(number);
+
+        char json_response[50];
+        snprintf_P(json_response,sizeof(json_response), PSTR("{\"SetMode %d\"}"),number);
+        ResponseCmndChar(PSTR(json_response));
+    }
+    else
+    {
+        ResponseCmndChar("Invalid Command");
+    }
+}
+
+void CmndSetLiquidLevel()
+{
+
+}
+
+void CmndSetRelayULS1()
+{
+
+}
+
+void CmndSetRelayULS2()
+{
+
+}
+ 
+void CmndSetUnits()
+{
+
+}
 
 bool Xsns122(uint32_t function)
 {
@@ -260,7 +337,7 @@ bool Xsns122(uint32_t function)
     bool result = false;
     if(FUNC_INIT == function)
     {
-        ESULSInit();
+        ULSInit();
     }
     else if (ESULS.valid)
     {
@@ -269,12 +346,14 @@ bool Xsns122(uint32_t function)
         case FUNC_EVERY_250_MSECOND:
             ULSReadData();
             break;
+        case FUNC_COMMAND:
+            result = DecodeCommand(kULSCommand,ULSCommand);
         case FUNC_JSON_APPEND:
-            ESULSShow(1);
+            ULSShow(1);
             break;
 #ifdef USE_WEBSERVER
         case FUNC_WEB_SENSOR:
-            ESULSShow(0);
+            ULSShow(0);
             break;
 #endif
         }

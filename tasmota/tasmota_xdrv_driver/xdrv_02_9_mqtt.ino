@@ -738,14 +738,14 @@ bool MqttPublishLib(const char *topic, const uint8_t *payload, unsigned int plen
     }
     else
     { // attr is "STATE" or "INFO1/2/3" or any
-      strlcpy((char *)topic, "v1/devices/me/attributes", 25);
+      //strlcpy((char *)topic, "v1/devices/me/attributes", 25);
     }
   }
   else if (prefix == "stat")
   {
     if (attr == "RESULT")
     { // send as attribute update
-      strlcpy((char *)topic, "v1/devices/me/attributes", 25);
+      //strlcpy((char *)topic, "v1/devices/me/attributes", 25);
     }
     else
     {
