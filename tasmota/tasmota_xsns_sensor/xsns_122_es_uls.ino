@@ -135,7 +135,7 @@ void SettingMode(float mode)
     }
 }
 
-void SettingUints(float units)
+void SettingUnits(float units)
 {
     uint32_t units_raw;
     memcpy(&units_raw, &units, sizeof(float));
@@ -274,7 +274,7 @@ void (* const ULSCommand[])(void) PROGMEM = {
     &CmndSetRelayULS1,
     &CmndSetRelayULS2,
     &CmndSetUnits
-}
+};
 
 void CmndSetMountingHeight(void)
 {
@@ -327,7 +327,14 @@ void CmndSetRelayULS2()
  
 void CmndSetUnits()
 {
+    if((XdrvMailbox.data_len >= 1) && (XdrvMailbox.data_len < 4))
+    {
+        uint8_t number = (XdrvMailbox.data[0] - '0');
+        SettingUnits(number);
 
+        char json_response[50];
+        snprintf_P(json_response, sizeof(json_response), PSTR("{\"Set Units }"));
+    } 
 }
 
 bool Xsns122(uint32_t function)
@@ -346,8 +353,8 @@ bool Xsns122(uint32_t function)
         case FUNC_EVERY_250_MSECOND:
             ULSReadData();
             break;
-        case FUNC_COMMAND:
-            result = DecodeCommand(kULSCommand,ULSCommand);
+        /* case FUNC_COMMAND:
+            result = DecodeCommand(kULSCommand,ULSCommand); */
         case FUNC_JSON_APPEND:
             ULSShow(1);
             break;

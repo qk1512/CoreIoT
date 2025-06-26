@@ -12,10 +12,8 @@ struct RS485t
     uint8_t tx = 0;
     uint8_t rx = 0;
     TasmotaModbus *Rs485Modbus = nullptr;
-    //uint32_t sensor_active[4];
     bool requestSent[MAX_SENSORS] = {false};
     uint32_t _active[3];
-    uint8_t sensor_id = 1;
     uint32_t lastRequestTime; 
 }RS485;
 
@@ -74,14 +72,6 @@ bool isWaitingResponse(int sensor_id)
     return false;
 }
 
-void advanceSensorID()
-{
-    RS485.sensor_id++;
-    if (RS485.sensor_id > MAX_SENSORS)
-    {
-        RS485.sensor_id = 1;
-    }
-}
 void Rs485SetActive(uint32_t addr)
 {
     addr &= 0x77;
